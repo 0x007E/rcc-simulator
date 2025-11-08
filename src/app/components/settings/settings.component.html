@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            Toogle Theme Button
+            <hr>
+            <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="themeSwitch" [checked]="isDarkMode" (change)="toggleTheme()">
+            <label class="form-check-label" for="themeSwitch">{{ isDarkMode ? 'Dunkel' : 'Hell' }}</label>
+            </div>
+        </div>
+    </div>
+</div>

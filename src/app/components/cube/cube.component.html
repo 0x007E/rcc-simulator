@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 d-none d-md-block">
+        </div>
+        <div class="col-md-8">
+            <div class="image-container" (click)="onClick()" (mousedown)="onMouseDown()" (mouseup)="onMouseUp()" (mouseleave)="onMouseLeave()">
+                <img src="./images/cube.png" class="img-fluid" alt="RCC Cube">
+                @if (this.cube.LeftLED) {
+                    <div class="led-overlay led-left" [style.boxShadow]="shadowBoxStyle(this.cube.LeftLED.Color)" [style.background-color]="this.cube.LeftLED.Color.toRGBString(BACKGROUND_ALPHA)" [style.opacity]="this.cube.LeftLED.Opacity ? 1 : 0"></div>
+                }
+                @if (this.cube.RightLED) {
+                    <div class="led-overlay led-right" [style.boxShadow]="shadowBoxStyle(this.cube.RightLED.Color)" [style.background-color]="this.cube.RightLED.Color.toRGBString(BACKGROUND_ALPHA)" [style.opacity]="this.cube.RightLED.Opacity ? 1 : 0"></div>
+                }
+                @if ((this.cube.OverlayText.trim().length != 0) && this.cube.OverlayVisible) {
+                    <div class="overlay-text">{{ this.cube.OverlayText }}</div>
+                }
+            </div>
+        </div>
+        <div class="col-md-2 d-none d-md-block">
+        </div>
+    </div>
+</div>

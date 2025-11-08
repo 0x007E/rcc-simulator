@@ -1,0 +1,43 @@
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.led-overlay {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.led-left {
+  top: 42.5%;
+  left: 20%;
+  width: 11%;
+  height: 8%;
+}
+
+.led-right {
+  top: 37.5%;
+  left: 69%;
+  width: 11%;
+  height: 8%;
+}
+
+.overlay-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.3); /* heller Hintergrund im Lightmode */
+  text-align: center;
+  padding: 10px;
+}

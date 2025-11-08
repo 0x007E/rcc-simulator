@@ -1,0 +1,56 @@
+{
+    "Initial": {
+        "Color": [
+            "#00FFFF",
+            "#FF00FF"
+        ],
+        "Opacity": true,
+        "OverlayVisible": true
+    },
+    "Final": {
+        "Color": [
+            "#000000",
+            "#000000"
+        ],
+        "Opacity": false,
+        "OverlayVisible": false,
+        "Disabled": true
+    },
+    "Sequence":
+    [
+        {
+            "Mode": "Interval",
+            "Variable": true,
+            "Color": [
+                "#00FF00",
+                "#00FF00"
+            ],
+            "Delay": 500,
+            "Interval": 2,
+            "Blocked": true
+        },
+        {
+            "Mode": "Timeout",
+            "Variable": false,
+            "Color": [],
+            "Delay": 1000,
+            "Interval": 5,
+            "Blocked": false
+        },
+        {
+            "Mode": "Interval",
+            "Variable": true,
+            "Color": [
+                "#FF0000",
+                "#FF0000",
+                "#FFFF00",
+                "#FFFF00",
+                "#00FF00",
+                "#00FF00"
+            ],
+            "Delay": 500,
+            "Interval": 2,
+            "Blocked": true
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-7">
+            <h3>LED Power On</h3>
+        </div>
+        <div class="col-md-5 text-md-end">
+            <button class="btn btn-danger" (click)="buttonResetClick()">Reset</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="d-flex align-items-center mb-2">
+                The&nbsp;
+                <mat-icon>lightbulb</mat-icon>
+                &nbsp;
+                leds are&nbsp;
+                <mat-icon>flash_on</mat-icon>
+                &nbsp;
+                blinking:
+            </div>
+            <div class="form-check mb-1">
+                <input class="form-check-input" type="radio" [(ngModel)]="selectedColor" value="green" checked>
+                <label class="form-check-label text-success" for="radioStartGreen">
+                    <b>Green</b>
+                </label>
+            </div>
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" [(ngModel)]="selectedColor" value="red">
+                <label class="form-check-label text-danger" for="radioStartRed">
+                    <b>Red</b>
+                </label>
+            </div>
+            <div class="mb-2">
+                on startup!
+            </div>
+        </div>
+        <div class="col-md-7 text-md-center">
+            @if (this.selectedColor === 'green') {
+                <ngb-alert type="success" [dismissible]="false">
+                    <mat-icon class="mx-2">battery_full</mat-icon>Everything is working fine! Battery level is good.
+                </ngb-alert>
+            } @else {
+                <ngb-alert type="danger" [dismissible]="false">
+                    <mat-icon class="mx-2">battery_1_bar</mat-icon>Level of Battery is low! Battery needs to be replaced soon.
+                </ngb-alert>
+            }
+        </div>
+    </div>
+</div>
+@if (this.Cube) {
+    <app-cube [cube]="this.Cube" (onClickEvent)="handleImageClick()"></app-cube>
+}
