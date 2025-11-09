@@ -1,21 +1,32 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeService } from './services/theme';
+import { TranslateDirective, TranslateModule, TranslatePipe, TranslateService } from "@ngx-translate/core";
+import { LocationService } from './services/location';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, NgbDropdownModule, MatIconModule],
+  imports: [RouterOutlet, RouterLink, TranslateModule, NgbDropdownModule, MatIconModule],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
 
 export class App {
   protected readonly title = signal('cube');
+  protected readonly currentYear: number = new Date().getFullYear();
+  private translate = inject(TranslateService);
   isDarkMode: boolean;
 
-  constructor(private themeService: ThemeService) {
+  constructor(
+    private locationService: LocationService,
+    private themeService: ThemeService
+  ) {
+    this.translate.addLangs(['de', 'en']);
+    this.translate.setFallbackLang('en');
+    this.translate.use(this.locationService.Location);
+
     this.isDarkMode = this.themeService.isDarkMode();
     this.themeService.setDarkMode(this.isDarkMode);
   }

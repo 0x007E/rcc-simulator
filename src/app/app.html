@@ -9,22 +9,22 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown" ngbDropdown>
           <a class="nav-link dropdown-toggle" ngbDropdownToggle role="button" aria-expanded="false">
-            <mat-icon>light_mode</mat-icon> Signals
+            <mat-icon>light_mode</mat-icon> {{ 'navbar.signals' | translate }}
           </a>
           <ul ngbDropdownMenu class="dropdown-menu">
             <li>
               <a class="dropdown-item" [routerLink]="['/']">
-                <mat-icon>power</mat-icon> Power On
+                <mat-icon>power</mat-icon> {{ 'navbar.poweron' | translate }}
               </a>
             </li>
             <li>
               <a class="dropdown-item" [routerLink]="['/poweroff']">
-                <mat-icon>power_off</mat-icon> Power Off
+                <mat-icon>power_off</mat-icon> {{ 'navbar.poweroff' | translate }}
               </a>
             </li>
             <li>
               <a class="dropdown-item" [routerLink]="['/setup']">
-                <mat-icon>build</mat-icon> SetUp
+                <mat-icon>build</mat-icon> {{ 'navbar.setup' | translate }}
               </a>
             </li>
           </ul>
@@ -32,12 +32,12 @@
 
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/settings']">
-            <mat-icon>settings</mat-icon> Settings
+            <mat-icon>settings</mat-icon> {{ 'navbar.settings' | translate }}
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/help']">
-            <mat-icon>help</mat-icon> Help
+            <mat-icon>help</mat-icon> {{ 'navbar.help' | translate }}
           </a>
         </li>
       </ul>
@@ -49,9 +49,9 @@
       <div class="col-md-2 d-none d-md-block">
       </div>
       <div class="col-md-8">
-        <h1>RCC - Information Panel</h1>
+        <h1>{{ 'app.title' | translate }}</h1>
         <br />
-        This panel explaines the signal codes of the RCC (RGB Color LED Cube). It also gives information on how to setup the color and intensity of the LEDs. Information about the project can be found <a href="https://github.com/0x007e/rcc" target="_blank">here</a>. For questions and suggestions, please open an issue on GitHub. To start the interaction just klick on the image below or switch to the different categories using the menu.
+        <span [innerHTML]="'app.introduction' | translate:{ link: 'https://github.com/0x007e/rcc' }"></span>
         <hr>
       </div>
       <div class="col-md-2 d-none d-md-block">
@@ -71,7 +71,7 @@
       </div>
       <div class="col-md-8 text-md-center mb-3">
           <hr>
-          <span class="badge bg-primary mx-2" id="copyrightDate">2025</span> <b>g.raf^engineering</b>, published under <a href="https://github.com/0x007E/rcc/blob/main/LICENSE.md" target="_blank">GPLv3</a>.
+          <span class="badge bg-primary mx-2" id="copyrightDate">{{currentYear}}</span> <span [innerHTML]="'app.copyright.published' | translate:{ link: 'https://github.com/0x007e/rcc/blob/main/LICENSE.md', name: 'GPLv3' }"></span>
       </div>
       <div class="col-md-2 d-none d-md-block">
       </div>

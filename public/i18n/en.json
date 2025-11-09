@@ -1,0 +1,13 @@
+{
+  "navbar.signals": "Signals",
+  "navbar.poweron": "Power On",
+  "navbar.poweroff": "Power Off",
+  "navbar.setup": "SetUp",
+  "navbar.settings": "Settings",
+  "navbar.help": "Help",
+
+  "app.title": "RCC - Information Panel",
+  "app.introduction": "This panel explaines the signal codes of the RCC (RGB Color LED Cube). It also gives information on how to setup the color and intensity of the LEDs. Information about the project can be found <a href=\"{{link}}\" target=\"_blank\">here</a>. For questions and suggestions, please open an issue on GitHub. To start the interaction just klick on the image below or switch to the different categories using the menu.",
+
+  "app.copyright.published": "<b>g.raf^engineering</b>, published under <a href=\"{{link}}\" target=\"_blank\">{{name}}</a>."
+}

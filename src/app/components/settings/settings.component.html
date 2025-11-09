@@ -1,11 +1,30 @@
 <div class="container">
     <div class="row mb-3">
-        <div class="col-md-12">
-            Toogle Theme Button
+        <div class="col-md-6">
+            <h3>Toggle Theme Button</h3>
             <hr>
             <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="themeSwitch" [checked]="isDarkMode" (change)="toggleTheme()">
-            <label class="form-check-label" for="themeSwitch">{{ isDarkMode ? 'Dunkel' : 'Hell' }}</label>
+                <input class="form-check-input" type="checkbox" id="themeSwitch" [checked]="isDarkMode" (change)="toggleTheme()">
+                <label class="form-check-label" for="themeSwitch">{{ isDarkMode ? 'Dunkel' : 'Hell' }}</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>Language Selection</h3>
+            <hr>
+            <div ngbDropdown class="d-inline-block">
+                <button type="button" class="btn btn-outline-primary" id="dropdownLanguage" ngbDropdownToggle>
+                    Select Language
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownLanguage">
+                    <button ngbDropdownItem (click)="selectLanguage('de')">
+                        <span class="fi fi-at"></span>
+                        Deutsch (Österreich)
+                    </button>
+                    <button ngbDropdownItem (click)="selectLanguage('en')">
+                        <span class="fi fi-us"></span>
+                        English (United States)
+                    </button>
+                </div>
             </div>
         </div>
     </div>
