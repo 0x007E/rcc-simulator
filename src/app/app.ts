@@ -1,14 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeService } from './services/theme';
-import { TranslateDirective, TranslateModule, TranslatePipe, TranslateService } from "@ngx-translate/core";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { LocationService } from './services/location';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, TranslateModule, NgbDropdownModule, MatIconModule],
+  imports: [RouterOutlet, RouterLink, TranslateModule, NgbModule, MatIconModule],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
@@ -17,7 +17,8 @@ export class App {
   protected readonly title = signal('cube');
   protected readonly currentYear: number = new Date().getFullYear();
   private translate = inject(TranslateService);
-  isDarkMode: boolean;
+  public isDarkMode: boolean;
+  public isCollapsed = true;
 
   constructor(
     private locationService: LocationService,
