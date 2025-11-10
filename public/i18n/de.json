@@ -9,5 +9,11 @@
   "app.title": "RCC - Information Panel",
   "app.introduction": "Dieses Panel erklärt die Signal-Codes des RCC (RGB Color LED Cube). Des weiteren gibt es auch Informationen darüber, wie man die Farbe und Intensität der LEDs einstellt. Informationen über das Projekt finden sich <a href=\"{{link}}\" target=\"_blank\">hier</a>. Für Fragen und Vorschläge kann jederzeit ein Issue auf GitHub erstellt werden. Um die Interaktion zu starten, klicken einfach auf das Bild unten klicken oder zu den verschiedenen Kategorien über das Menü wechseln.",
 
-  "app.copyright.published": "<b>g.raf^engineering</b>, veröffentlicht unter <a href=\"{{link}}\" target=\"_blank\">{{name}}</a>."
+  "app.copyright.published": "<b>g.raf^engineering</b>, veröffentlicht unter <a href=\"{{link}}\" target=\"_blank\">{{name}}</a>.",
+
+  "settings.theme.title": "Theme",
+  "settings.theme.light": "Hell",
+  "settings.theme.dark": "Dunkel",
+  "settings.location.title": "Standort",
+  "settings.language.selection": "Sprache auswählen"
 }
