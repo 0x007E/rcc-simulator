@@ -17,7 +17,7 @@ concurrency:
 
 env:
   NODE_VERSION: 1.14.0
-  OUTPUT_PATH: "./_site"
+  OUTPUT_PATH: "./_site/"
   BASE_HREF: "/rcc-simulator/"
   CONFIGURATION: "production"
 
@@ -39,7 +39,7 @@ jobs:
       - name: Upload artifact for deployment
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./_site
+          path: ${{ env.OUTPUT_PATH }}browser
 
   deploy:
     environment:
