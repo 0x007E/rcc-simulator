@@ -15,5 +15,8 @@
   "settings.theme.light": "Hell",
   "settings.theme.dark": "Dunkel",
   "settings.location.title": "Standort",
-  "settings.language.selection": "Sprache auswählen"
+  "settings.language.selection": "Sprache auswählen",
+
+  "settings.poweroff.title": "RCC - Ausschaltsequenz",
+  "settings.poweroff.description": "Nach dem Erkennungssignal des Tastendrucks (grün) wird die Ausschaltsequenz aktiviert, wenn die Taste 5 Sekunden lang gehalten wird! Wenn die Sequenz unterbrochen wird (Taste losgelassen), wechselt der RCC in den Einrichtungsmodus!"
 }

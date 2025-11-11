@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col-md-8">
-            <h3>LED Power Off</h3>
+            <h3>{{ 'settings.poweroff.title' | translate }}</h3>
         </div>
         <div class="col-md-4 text-md-end">
             <button class="btn btn-danger" (click)="buttonResetClick()">Reset</button>
@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-10">
             <ngb-alert type="warning" [dismissible]="false">
-                <mat-icon class="mx-2">more_time</mat-icon>After pressing the button for 5 seconds, the device will power off by a blinking sequence from green to red. When the blinking sequence starts the button can be released.
+                <mat-icon class="mx-2">more_time</mat-icon>{{ 'settings.poweroff.description' | translate }}
             </ngb-alert>
         </div>
         <div class="col-md-2 d-flex align-items-center justify-content-center">
