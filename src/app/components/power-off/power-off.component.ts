@@ -1,29 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap";
 import { MatIconModule } from "@angular/material/icon";
+import { CubeComponent } from "../cube/cube.component";
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SequenceMode } from '../../classes/sequence';
 import { Cube } from '../../classes/cube';
 import { LED } from '../../classes/led';
 import { Color } from '../../classes/color';
-import { CubeComponent } from "../cube/cube.component";
-import { Sequence, SequenceMode } from '../../classes/sequence';
-import { HttpClient } from '@angular/common/http';
-import { Initial } from '../../classes/initial';
-import { Final } from '../../classes/final';
-import { Router } from '@angular/router';
+import { Workflow } from '../../classes/workflow';
+import { WorkflowService } from '../../services/workflow';
 
 @Component({
   selector: 'app-power-off.component',
-  imports: [CubeComponent, NgbAlert, MatIconModule],
+  imports: [TranslateModule, NgbAlert, MatIconModule, CubeComponent],
   templateUrl: './power-off.component.html',
   styleUrl: './power-off.component.css',
 })
 export class PowerOffComponent implements OnInit {
 
   private cube!: Cube;
-
-  private sequenceData!: Sequence[];
-  private initialData!: Initial;
-  private finalData!: Final;
+  private workflow!: Workflow;
 
   private timePassed: number = 0;
 
@@ -33,32 +29,31 @@ export class PowerOffComponent implements OnInit {
   private finalReached: boolean = false;
 
   constructor(
-    private router: Router,
-    private http: HttpClient) {
-        this.Cube = new Cube('Click to start');
-        this.Cube.LeftLED = new LED();
-        this.Cube.RightLED = new LED();
+    private translate: TranslateService,
+    private workflowService: WorkflowService) {
+
+        this.translate.get('app.global.click').subscribe((text: string) => {
+          this.Cube = new Cube(text);
+          this.Cube.LeftLED = new LED();
+          this.Cube.RightLED = new LED();
+        });
+
+        this.workflowService.setFile('data/power_off.json');
   }
 
   private resetCube() {
-    this.Cube.LeftLED.Opacity = this.initialData.Opacity;
-    this.Cube.RightLED.Opacity = this.initialData.Opacity;
-    this.Cube.LeftLED.Color = new Color(this.initialData.Color[0]);
-    this.Cube.RightLED.Color = new Color(this.initialData.Color[1]);
+    this.Cube.LeftLED.Opacity = this.workflow.Initial.Opacity;
+    this.Cube.RightLED.Opacity = this.workflow.Initial.Opacity;
+    this.Cube.LeftLED.Color = new Color(this.workflow.Initial.Color[0]);
+    this.Cube.RightLED.Color = new Color(this.workflow.Initial.Color[1]);
   }
 
   ngOnInit(): void {
-    this.http.get<any>('data/power_off.json').subscribe({
-    next: jsonData => {
-      this.sequenceData = jsonData.Sequence as Sequence[];
-      this.initialData = jsonData.Initial as Initial;
-      this.finalData = jsonData.Final as Final;
-      this.Cube.OverlayVisible = this.initialData.OverlayVisible;
+    this.workflowService.Workflow.subscribe(workflow => {
+      this.workflow = workflow;
+      this.Cube.OverlayVisible = this.workflow.Initial.OverlayVisible;
       this.resetCube();
-    },
-    error: error => {
-      this.router.navigate(['/error?error=' + error.message]);
-    }});
+    });
   }
 
   public get Cube() : Cube {
@@ -71,12 +66,11 @@ export class PowerOffComponent implements OnInit {
     }
     this.cube = cube;
   }
-
-
+  
   buttonResetClick() {
     
     this.sequenceRunning = false;
-    this.Cube.OverlayVisible = this.initialData.OverlayVisible;
+    this.Cube.OverlayVisible = this.workflow.Initial.OverlayVisible;
     this.buttonDisabled = false;
     this.resetCube();
   }
@@ -90,12 +84,12 @@ export class PowerOffComponent implements OnInit {
   async runSequence(index: number = 0): Promise<any> {
     if (!this.sequenceRunning) {
       return;
-    } else if (index >= this.sequenceData.length) {
+    } else if (index >= this.workflow.Sequence.length) {
       this.finalReached = true;
       return;
     }
 
-    const sequence = this.sequenceData[index];
+    const sequence = this.workflow.Sequence[index];
     let count = 0;
     let nextColorIndex = 0;
     
@@ -145,7 +139,7 @@ export class PowerOffComponent implements OnInit {
 
               if(!((count + 1)%(sequence.Interval * 2))) {
                 nextColorIndex++;
-                console.log('Next color index: ' + nextColorIndex);
+                // console.log('Next color index: ' + nextColorIndex);
 
                 if(nextColorIndex < (sequence.Color.length / 2)) {
                   this.Cube.LeftLED.Color = new Color(sequence.Color[(nextColorIndex * 2)]);
@@ -160,7 +154,7 @@ export class PowerOffComponent implements OnInit {
             break;
           case SequenceMode.Timeout:
 
-            console.log('Timeout mode: count=' + count + ', interval=' + sequence.Interval + ', timePassed=' + this.timePassed);
+            // console.log('Timeout mode: count=' + count + ', interval=' + sequence.Interval + ', timePassed=' + this.timePassed);
             
             this.timePassed++;
 
@@ -173,7 +167,7 @@ export class PowerOffComponent implements OnInit {
             } else {
               if(!sequence.Blocked && this.buttonReleased) {
               
-                console.log('Resetting sequence due to button release.' + this.buttonReleased);
+                // console.log('Resetting sequence due to button release.' + this.buttonReleased);
                 
                 this.sequenceRunning = false;
                 this.resetCube();
@@ -207,12 +201,12 @@ export class PowerOffComponent implements OnInit {
 
       if(this.finalReached) {
         this.sequenceRunning = false;
-        this.buttonDisabled = this.finalData.Disabled;
-        this.Cube.LeftLED.Opacity = this.finalData.Opacity;
-        this.Cube.RightLED.Opacity = this.finalData.Opacity;
-        this.Cube.LeftLED.Color = new Color(this.finalData.Color[0]);
-        this.Cube.RightLED.Color = new Color(this.finalData.Color[1]);
-        this.cube.OverlayVisible = this.finalData.OverlayVisible;
+        this.buttonDisabled = this.workflow.Final.Disabled;
+        this.Cube.LeftLED.Opacity = this.workflow.Final.Opacity;
+        this.Cube.RightLED.Opacity = this.workflow.Final.Opacity;
+        this.Cube.LeftLED.Color = new Color(this.workflow.Final.Color[0]);
+        this.Cube.RightLED.Color = new Color(this.workflow.Final.Color[1]);
+        this.Cube.OverlayVisible = this.workflow.Final.OverlayVisible;
       }
     }); 
   }
