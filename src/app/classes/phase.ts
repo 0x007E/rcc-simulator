@@ -1,8 +1,14 @@
 export class Phase {
 
-  private color!: string[];
-  private opacity!: boolean;
-  private overlay!: boolean;
+  private color: string[];
+  private opacity: boolean;
+  private overlay: boolean;
+
+  constructor(color: string[] = [], opacity = false, overlay = false) {
+    this.color = color;
+    this.opacity = opacity;
+    this.overlay = overlay;
+  }
 
   public get Color(): string[] {
     return this.color;
