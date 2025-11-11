@@ -3,11 +3,11 @@ import { NgbAlert } from "@ng-bootstrap/ng-bootstrap";
 import { MatIconModule } from "@angular/material/icon";
 import { CubeComponent } from "../cube/cube.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SequenceMode } from '../../classes/sequence';
 import { Cube } from '../../classes/cube';
 import { Workflow } from '../../classes/workflow';
 import { WorkflowService } from '../../services/workflow';
 import { CubeService, Position } from '../../services/cube';
+import { SequenceMode } from '../../enums/sequence';
 
 @Component({
   selector: 'app-power-off.component',

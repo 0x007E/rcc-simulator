@@ -3,16 +3,11 @@ import { Cube } from '../classes/cube';
 import { LED } from '../classes/led';
 import { Color } from '../classes/color';
 import { Phase } from '../classes/phase';
+import { Position } from '../enums/position';
 
 @Injectable({
   providedIn: 'root',
 })
-export enum Position {
-  Left = 'Left',
-  Right = 'Right',
-  Both = 'Both'
-}
-
 export class CubeService {
   private cube!: Cube;
 
@@ -79,3 +74,5 @@ export class CubeService {
     }
   }
 }
+
+export { Position };

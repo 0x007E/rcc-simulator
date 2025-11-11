@@ -1,7 +1,4 @@
-export enum SequenceMode {
-  Interval = 'Interval',
-  Timeout = 'Timeout'
-}
+import { SequenceMode } from "../enums/sequence";
 
 export class Sequence {
 
