@@ -12,7 +12,7 @@ export class CubeService {
   private cube!: Cube;
 
   constructor() {
-      this.cube = new Cube('');
+      this.cube = new Cube('Default');
       this.cube.LeftLED = new LED();
       this.cube.RightLED = new LED();
   }
@@ -23,7 +23,7 @@ export class CubeService {
 
   public reset() {
     this.Cube.OverlayVisible = false;
-    this.Cube.OverlayText = '';
+    this.Cube.OverlayText = 'Default';
 
     this.setColor(Position.Both, '#FFFFFF');
     this.setOpacity(Position.Both, false);
