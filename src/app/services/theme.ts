@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root',  // Singleton Service verfügbar in der ganzen App
+  providedIn: 'root',
 })
 export class ThemeService {
   private readonly cookieName = 'darkMode';
