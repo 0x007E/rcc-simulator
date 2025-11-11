@@ -23,7 +23,6 @@ export class CubeService {
 
   public reset() {
     this.Cube.OverlayVisible = false;
-    this.Cube.OverlayText = 'Default';
 
     this.setColor(Position.Both, '#FFFFFF');
     this.setOpacity(Position.Both, false);
@@ -74,5 +73,3 @@ export class CubeService {
     }
   }
 }
-
-export { Position };
