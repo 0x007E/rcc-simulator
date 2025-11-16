@@ -20,5 +20,8 @@
 
 
   "settings.poweroff.title": "RCC - Power off sequence",
-  "settings.poweroff.description": "After the button press detection signal (green), the shutdown sequence is activated if the button is held for 5 seconds! If the sequence is interrupted (button released), the RCC enters the setup mode!"
+  "settings.poweroff.description": "After the button press detection signal (green), the shutdown sequence is activated if the button is held for 5 seconds! If the sequence is interrupted (button released), the RCC enters the setup mode!",
+  
+  "settings.help.title": "Help",
+  "settings.help.description": "Help and instructions for using the RCC Information Panel."
 }

@@ -1,1 +1,14 @@
-<p>help.component works!</p>
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h3>{{ 'settings.help.title' | translate }}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ngb-alert type="primary" [dismissible]="false">
+                <mat-icon class="mx-2">more_time</mat-icon>{{ 'settings.help.description' | translate }}
+            </ngb-alert>
+        </div>
+    </div>
+</div>
