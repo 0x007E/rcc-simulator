@@ -1,45 +1,54 @@
-import { Final } from "./final";
-import { Initial } from "./initial";
-import { Sequence } from "./sequence";
-
 export class Workflow {
-    private initial: Initial;
-    private sequence: Sequence[];
-    private final: Final;
+    private blocked: boolean = false;
+    private finished: boolean = false;
+    private released: boolean = false;
+    private delay: number = 100;
+    private interval!: number;
 
-    constructor(jsonData: any) {
-        this.initial = jsonData.Initial as Initial;
-        this.sequence = jsonData.Sequence as Sequence[];
-        this.final = jsonData.Final as Final;
+    public get Blocked(): boolean {
+        return this.blocked;
+    }
+    public set Blocked(blocked: boolean) {
+        this.blocked = blocked;
     }
 
-    public get Initial(): Initial {
-        return this.initial;
+    public get Released(): boolean {
+        return this.released;
     }
-    public set Initial(initial: Initial) {
-        if(!initial || !(initial instanceof Initial)) {
-            throw new Error('Initial is not valid!');
+    public set Released(released: boolean) {
+        this.released = released;
+    }
+
+    public get Finished(): boolean {
+        return this.finished;
+    }
+
+    public set Finished(finished: boolean) {
+        this.finished = finished;
+    }
+
+    public get Delay(): number {
+        return this.delay;
+    }
+    public set Delay(delay: number) {
+        if(delay < 1) {
+        throw new Error('Delay is not valid!');
         }
-        this.initial = initial;
-    }
-
-    public get Sequence(): Sequence[] {
-        return this.sequence;
-    }
-    public set Sequence(sequence: Sequence[]) {
-        if(!sequence || !(sequence instanceof Array)) {
-            throw new Error('Array<Sequence> is not valid!');
-        }
-        this.sequence = sequence;
+        this.delay = delay;
     }
     
-    public get Final(): Final {
-        return this.final;
+    public get Interval(): number {
+        return this.interval;
     }
-    public set Final(final: Final) {
-        if(!final || !(final instanceof Final)) {
-            throw new Error('Final is not valid!');
+    public set Interval(interval: number) {
+        if(interval < 1) {
+        throw new Error('Delay is not valid!');
         }
-        this.final = final;
+        this.interval = interval;
+    }
+
+    public reset() {
+        this.Blocked = false;
+        this.Finished = false;
     }
 }

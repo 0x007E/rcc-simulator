@@ -1,14 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Cube } from '../classes/cube';
-import { LED } from '../classes/led';
-import { Color } from '../classes/color';
-import { Phase } from '../classes/phase';
+import { Cube } from './cube';
+import { LED } from './led';
+import { Color } from './color';
+import { Phase } from './phase';
 import { Position } from '../enums/position';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class CubeService {
+export class CubeManager {
   private cube!: Cube;
 
   constructor() {

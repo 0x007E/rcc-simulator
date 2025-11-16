@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from "@angular/material/icon";
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap";
 import { CubeComponent } from "../cube/cube.component";
-import { Color } from '../../classes/color';
-import { Cube } from '../../classes/cube';
-import { LED } from '../../classes/led';
+import { TranslateService } from '@ngx-translate/core';
+import { CubeManager } from '../../classes/cube-manager';
+import { Workflow } from '../../classes/workflow';
+import { Position } from '../../enums/position';
+import { Phase } from '../../classes/phase';
 
 
 @Component({
@@ -14,79 +16,87 @@ import { LED } from '../../classes/led';
   templateUrl: './power-on.component.html',
   styleUrl: './power-on.component.css',
 })
-export class PowerOnComponent {
+export class PowerOnComponent implements OnInit {
   
-  private cube!: Cube;
   public selectedColor: string = 'red';
 
-  constructor() {
-    this.Cube = new Cube('Click to start');
-    this.cube.LeftLED = new LED();
-    this.cube.RightLED = new LED();
+  protected manager!: CubeManager;
+  private workflow!: Workflow;
 
-    this.Cube.LeftLED.Color = new Color('#ffffff');
-    this.Cube.RightLED.Color = new Color('#ffffff');
+  constructor(
+    private translate: TranslateService) {
+
+        this.workflow = new Workflow();
+        this.workflow.Delay = 500;
+        this.workflow.Interval = 2;
+
+        this.manager = new CubeManager();
+        this.manager.reset();
+
+        this.translate.get('app.global.click').subscribe((text: string) => {
+          this.manager.Cube.OverlayText = text;
+        });
   }
 
-  public get Cube() : Cube {
-    return this.cube;
-  }
-  private set Cube(cube : Cube) {
-    if(!cube || !(cube instanceof Cube)) {
-      throw new Error('Cube is not valid!');
-    }
-    this.cube = cube;
+  ngOnInit(): void {
+    this.buttonResetClick();
   }
 
   intervalId: any;
 
-  public onColorChange() {
-    if(this.selectedColor === 'green') {
-      this.Cube.LeftLED.Color = new Color('#00ff00');
-      this.Cube.RightLED.Color = new Color('#00ff00');
-    } else if(this.selectedColor === 'red') { 
-      this.Cube.LeftLED.Color = new Color('#ff0000');
-      this.Cube.RightLED.Color = new Color('#ff0000');
-    }
-  }
-
   public buttonResetClick() {
     clearInterval(this.intervalId);
 
-    this.onColorChange();
+    this.manager.reset();
+    this.workflow.reset();
 
-    this.Cube.OverlayVisible = true;
-    this.Cube.LeftLED.Opacity = false;
-    this.Cube.RightLED.Opacity = false;
+    let batteryOK: Phase =  new Phase(['#00FF00', '#00FF00'], false, true);
+    let batteryFault: Phase =  new Phase(['#FF0000', '#FF0000'], false, true);
+
+    if(this.selectedColor === 'green') {
+      this.manager.setUp(batteryOK);
+    } else if(this.selectedColor === 'red') {
+      this.manager.setUp(batteryFault);
+    }
   }
 
-  public handleImageClick() {
+  public imageClick() {
 
-    this.Cube.OverlayVisible = false;
-    this.Cube.LeftLED.Opacity = false;
-    this.Cube.RightLED.Opacity = false;
-
-    this.onColorChange();
+    if(this.manager.Cube.OverlayVisible){
+      this.manager.Cube.OverlayVisible = false;
+      return;
+    } else if (this.workflow.Finished) {
+      this.buttonResetClick();
+      return;
+    } else if (this.workflow.Blocked) {
+      return;
+    }
 
     clearInterval(this.intervalId);
 
-    this.Cube.LeftLED.Opacity = !this.Cube.LeftLED.Opacity;
+    this.workflow.Blocked = true;
 
-    let count = 1;
-    const maxCount = 6;
+    let intervalCount = 0;
+    const maxIntervalCount = this.workflow.Interval * 2;
+
     this.intervalId = setInterval(() => {
       
-      this.Cube.LeftLED.Opacity = !this.Cube.LeftLED.Opacity;
-      this.Cube.RightLED.Opacity = !this.Cube.RightLED.Opacity;
+      if(intervalCount >= maxIntervalCount) {
+        let final: Phase =  new Phase(['#FF00FF', '#00FFFF'], true, false);
 
-      if ((++count) > maxCount) {
+        this.manager.setUp(final);
+        this.workflow.Finished = true;
         clearInterval(this.intervalId);
-        
-        this.Cube.LeftLED.Color = new Color('#FF00FF');
-        this.Cube.RightLED.Color = new Color('#00FFFF');
-        this.Cube.LeftLED.Opacity = true;
-        this.Cube.RightLED.Opacity = true;
+        return;
       }
-    }, 500);
+
+      if(intervalCount == 0) { 
+        this.manager.toggleOpacity(Position.Left)
+      } else {
+        this.manager.toggleOpacity(Position.Both)
+      }
+
+      intervalCount++;
+    }, this.workflow.Delay);
   }
 }

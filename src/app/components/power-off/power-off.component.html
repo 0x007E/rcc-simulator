@@ -14,12 +14,10 @@
             </ngb-alert>
         </div>
         <div class="col-md-2 d-flex align-items-center justify-content-center">
-            @if (this.runner) {
             <h2>{{ formattedTime }}</h2>
-            }
         </div>
     </div>
 </div>
-@if (this.Cube) {
-    <app-cube [cube]="this.Cube" (onMouseDownEvent)="onButtonPress()" (onMouseUpEvent)="onButtonRelease()" (onMouseLeaveEvent)="onButtonRelease()"></app-cube>
+@if (this.manager.Cube) {
+    <app-cube [cube]="this.manager.Cube" (onMouseDownEvent)="onButtonPress()" (onMouseUpEvent)="onButtonRelease()" (onMouseLeaveEvent)="onButtonRelease()"></app-cube>
 }

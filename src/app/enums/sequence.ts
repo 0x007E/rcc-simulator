@@ -1,4 +1,5 @@
 export enum SequenceMode {
   Interval = 'Interval',
-  Timeout = 'Timeout'
+  Timeout = 'Timeout',
+  Case = 'Case'
 }

@@ -19,13 +19,13 @@
                 blinking:
             </div>
             <div class="form-check mb-1">
-                <input class="form-check-input" type="radio" [(ngModel)]="selectedColor" value="green" checked>
+                <input class="form-check-input" type="radio" [(ngModel)]="selectedColor" (change)="buttonResetClick()" value="green" checked>
                 <label class="form-check-label text-success" for="radioStartGreen">
                     <b>Green</b>
                 </label>
             </div>
             <div class="form-check mb-2">
-                <input class="form-check-input" type="radio" [(ngModel)]="selectedColor" value="red">
+                <input class="form-check-input" type="radio" [(ngModel)]="selectedColor" (change)="buttonResetClick()" value="red">
                 <label class="form-check-label text-danger" for="radioStartRed">
                     <b>Red</b>
                 </label>
@@ -47,6 +47,6 @@
         </div>
     </div>
 </div>
-@if (this.Cube) {
-    <app-cube [cube]="this.Cube" (onClickEvent)="handleImageClick()"></app-cube>
+@if (this.manager.Cube) {
+    <app-cube [cube]="this.manager.Cube" (onClickEvent)="imageClick()"></app-cube>
 }
