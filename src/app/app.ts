@@ -5,10 +5,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeService } from './services/theme';
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { LocationService } from './services/location';
+import { CookieComponent } from "./components/cookie/cookie.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, TranslateModule, NgbModule, MatIconModule],
+  imports: [RouterOutlet, RouterLink, TranslateModule, NgbModule, MatIconModule, CookieComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
