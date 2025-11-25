@@ -28,8 +28,8 @@ export class CookieConsentService {
     this.consentSubject.next(value);
 
     if (value === 'accepted') {
-      this.loadGoogleAnalytics();
       window['ga-disable-G-D1Y61GZ21K'] = false;
+      this.loadGoogleAnalytics();
     } else {
       window['ga-disable-G-D1Y61GZ21K'] = true;
     }
@@ -40,20 +40,26 @@ export class CookieConsentService {
   }
 
   loadGoogleAnalytics(): void {
-    if (document.getElementById('ga-script')) return;
+    if (document.getElementById('ga-script')) {
+      return;
+    }
+
+    window['dataLayer'] = window['dataLayer'] || [];
+    function gtag(...args: any[]) {
+      window['dataLayer'].push(args);
+    }
+    window['gtag'] = gtag;
 
     const script = document.createElement('script');
     script.id = 'ga-script';
     script.async = true;
     script.src = 'https://www.googletagmanager.com/gtag/js?id=G-D1Y61GZ21K';
-    document.head.appendChild(script);
 
     script.onload = () => {
-      window['dataLayer'] = window['dataLayer'] || [];
-      function gtag(...args: any[]) { window['dataLayer'].push(args); }
-      window['gtag'] = gtag;
       gtag('js', new Date());
       gtag('config', 'G-D1Y61GZ21K');
     };
+
+    document.head.appendChild(script);
   }
 }

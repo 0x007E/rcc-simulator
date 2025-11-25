@@ -19,7 +19,7 @@ export class CookieComponent implements OnInit {
     if (!this.cookieConsentService.getConsent()) {
       this.openModal();
     } else if (this.cookieConsentService.getConsent() === 'accepted') {
-      this.cookieConsentService.loadGoogleAnalytics();
+      this.cookieConsentService.setConsent('accepted');
     }
   }
 
